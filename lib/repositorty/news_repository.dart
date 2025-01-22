@@ -5,7 +5,7 @@ import 'package:flutter_application_1/repositorty/repository_view.dart';
 
 class NewsRepository implements AbstractRepository<NewsListModel, ItemModel> {
   final Dio dio;
-  final String url = 'http://localhost:8080/news';
+  final String url = 'http://192.168.0.13:8080/news';
   //192.168.0.13
 
   NewsRepository({required this.dio});

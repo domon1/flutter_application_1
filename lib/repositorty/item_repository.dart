@@ -4,7 +4,7 @@ import 'package:flutter_application_1/repositorty/repository_view.dart';
 
 class ItemRepository implements AbstractRepository<ItemListModel, ItemModel> {
   final Dio dio;
-  final String url = 'http://localhost:8080/item';
+  final String url = 'http://192.168.0.13:8080/item';
   //192.168.0.13
 
   ItemRepository({required this.dio});

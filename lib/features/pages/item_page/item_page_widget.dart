@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/database/dbprovider.dart';
+import 'package:flutter_application_1/repositorty/models/item_cart_model.dart';
 import 'package:flutter_application_1/repositorty/models/item_model.dart';
 
 class ItemPageWidget extends StatefulWidget {
-  const ItemPageWidget({super.key, required this.item,});
+  const ItemPageWidget({
+    super.key,
+    required this.item,
+  });
   final ItemModel item;
 
   @override
@@ -10,12 +15,6 @@ class ItemPageWidget extends StatefulWidget {
 }
 
 class _ItemPageWidgetState extends State<ItemPageWidget> {
-  var s = true;
-
-  var m = false;
-
-  var l = false;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -83,8 +82,7 @@ class _ItemPageWidgetState extends State<ItemPageWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -94,13 +92,14 @@ class _ItemPageWidgetState extends State<ItemPageWidget> {
                                           widget.item.name,
                                           softWrap: true,
                                           style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 32
-                                          ),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 32),
                                         ),
                                       ),
-                                      const SizedBox(height: 20,)
+                                      const SizedBox(
+                                        height: 20,
+                                      )
                                     ],
                                   ),
                                   Column(
@@ -170,12 +169,8 @@ class _ItemPageWidgetState extends State<ItemPageWidget> {
                                             color: Colors.black38,
                                             borderRadius:
                                                 BorderRadius.circular(10)),
-                                        child: Center(
-                                          child: Text(s
-                                              ? "Small cup"
-                                              : m
-                                                  ? "Medium cup"
-                                                  : "Large cup"),
+                                        child: const Center(
+                                          child: Text(''),
                                         ),
                                       )
                                     ],
@@ -205,74 +200,6 @@ class _ItemPageWidgetState extends State<ItemPageWidget> {
                           Text(widget.item.description,
                               style: Theme.of(context).textTheme.labelMedium),
                           const SizedBox(height: 10),
-                          Text('Размер',
-                              style: Theme.of(context).textTheme.labelMedium),
-                          const SizedBox(height: 5),
-                          Container(
-      margin: const EdgeInsets.only(top: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          InkWell(
-            onTap: () {
-              s = true;
-              m = false;
-              l = false;
-              setState(() {});
-            },
-            child: Container(
-              height: 40,
-              width: 90,
-              decoration: BoxDecoration(
-                  color: s ? Colors.black38 : Colors.amber,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: s ? Colors.amber : Colors.black38)),
-              child: Center(
-                  child: Text('S',
-                      style: Theme.of(context).textTheme.labelMedium)),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              s = false;
-              m = true;
-              l = false;
-              setState(() {});
-            },
-            child: Container(
-              height: 40,
-              width: 90,
-              decoration: BoxDecoration(
-                  color: m ? Colors.black38 : Colors.amber,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: m ? Colors.amber : Colors.black38)),
-              child: Center(
-                  child: Text('M',
-                      style: Theme.of(context).textTheme.labelMedium)),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              s = false;
-              m = false;
-              l = true;
-              setState(() {});
-            },
-            child: Container(
-              height: 40,
-              width: 90,
-              decoration: BoxDecoration(
-                  color: l ? Colors.black38 : Colors.amber,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: l ? Colors.amber : Colors.black38)),
-              child: Center(
-                  child: Text('L',
-                      style: Theme.of(context).textTheme.labelMedium)),
-            ),
-          )
-        ],
-      ),
-    )
                         ],
                       ),
                     )
@@ -305,11 +232,7 @@ class _ItemPageWidgetState extends State<ItemPageWidget> {
                               width: 10,
                             ),
                             Text(
-                              s
-                                  ? '${widget.item.cost}'
-                                  : m
-                                      ? '${widget.item.cost+60}'
-                                      : '${widget.item.cost+100}',
+                              '${widget.item.cost}',
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
                           ],
@@ -323,9 +246,19 @@ class _ItemPageWidgetState extends State<ItemPageWidget> {
                           color: Colors.black38,
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
-                        child: Text(
-                          'Добавить в корзину',
-                          style: Theme.of(context).textTheme.labelMedium,
+                        child: TextButton(
+                            onPressed: () {
+                              DBProvider.instance.insertItem(
+                                ItemCartModel(
+                                  id: widget.item.id, 
+                                  name: widget.item.name, 
+                                  imageName: widget.item.imageName,
+                                  cost: widget.item.cost));
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              'Добавить в корзину',
+                                style: Theme.of(context).textTheme.labelMedium)
                         ),
                       ),
                     )

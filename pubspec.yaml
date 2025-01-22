@@ -34,7 +34,14 @@ dependencies:
   talker_flutter: ^4.5.2
   talker_dio_logger: ^4.5.2
   talker_bloc_logger: ^4.5.2
+  flutter_markdown: ^0.7.4+3
+  http: ^1.2.2
   auto_route: ^9.2.2
+  form_field_validator: ^1.1.0
+  sqflite: ^2.4.1
+  path: ^1.9.0
+  equatable: ^2.0.7
+  sqflite_common_ffi_web:
   flutter:
     sdk: flutter
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/appbar/appbar.dart';
-import 'package:flutter_application_1/features/appbar/category/item_category.dart';
 import 'package:flutter_application_1/features/pages/home_page/bloc/item_list/item_list_bloc.dart';
 import 'package:flutter_application_1/features/pages/home_page/bloc/news_list/news_list_bloc.dart';
 import 'package:flutter_application_1/features/pages/home_page/bloc_item_list_widget.dart';
@@ -41,13 +40,24 @@ class _HomePageState extends State<HomePage> {
             children: [
               Text('Выбери свой кофе', style: Theme.of(context).textTheme.labelLarge),
               const SizedBox(height: 20),
-              const ItemCategory(),
-              const SizedBox(height: 20),
               BlocNewsList(newsListBlock: _newsListBlock),
               const SizedBox(height: 20),
-              Text('Популярные напитки', style: Theme.of(context).textTheme.labelMedium),
+              Text('Кофе с молоком', style: Theme.of(context).textTheme.labelMedium),
               const SizedBox(height: 20),
-              BlocItemList(itemListBlock: _itemListBlock)
+              BlocItemList(itemListBlock: _itemListBlock, categoryId: 1,),
+              const SizedBox(height: 20),
+              Text('Черный кофе', style: Theme.of(context).textTheme.labelMedium),
+              const SizedBox(height: 20),
+              BlocItemList(itemListBlock: _itemListBlock, categoryId: 2),
+              const SizedBox(height: 20),
+              Text('Матча и чай', style: Theme.of(context).textTheme.labelMedium),
+              const SizedBox(height: 20),
+              BlocItemList(itemListBlock: _itemListBlock, categoryId: 5),
+              const SizedBox(height: 20),
+              Text('Какао', style: Theme.of(context).textTheme.labelMedium),
+              const SizedBox(height: 20),
+              BlocItemList(itemListBlock: _itemListBlock, categoryId: 4),
+              const SizedBox(height: 20),
             ],
           ),
         ),
