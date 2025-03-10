@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/repositorty/models/item_cart_model.dart';
+import 'package:flutter_application_1/repositorty/models/order_model.dart';
 
 
 class OrderRepository {
   final Dio dio;
-  final String url = 'http://192.168.0.13:8080/order';
+  final String url = 'http://192.168.0.11:8080/order';
   //192.168.0.13
 
   OrderRepository({required this.dio});
@@ -31,5 +32,16 @@ class OrderRepository {
     }
     var output = jsonEncode(list);
     await Dio().post('$url/save/$username', data: output);
+  }
+
+  Future<List<OrderModel>> getOrderByUsername(String username) async {
+    final response = await Dio().get('$url/all/$username');
+    //final data = response.data as Map<String, dynamic>;
+
+    List<OrderModel> orderList = [];
+    for (var tile in response.data) {
+      orderList.add(OrderModel.fromMap(tile));
+    }
+    return orderList;
   }
 }

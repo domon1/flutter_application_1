@@ -248,12 +248,14 @@ class _ItemPageWidgetState extends State<ItemPageWidget> {
                       child: Center(
                         child: TextButton(
                             onPressed: () {
+                              // TODO check contain cart
                               DBProvider.instance.insertItem(
                                 ItemCartModel(
                                   id: widget.item.id, 
                                   name: widget.item.name, 
                                   imageName: widget.item.imageName,
-                                  cost: widget.item.cost));
+                                  cost: widget.item.cost,
+                                  count: 1));
                               Navigator.pop(context);
                             },
                             child: Text(

@@ -79,7 +79,7 @@ class _AuthPageState extends State<AuthPage> {
                           padding: const EdgeInsets.only(right: 10),
                           child: SizedBox(
                             child: InkWell(
-                              onTap: () => Navigator.pushNamed(context, '/profileSettings'),
+                              onTap: () => Navigator.pushNamed(context, '/profileSettings', arguments: _profiles),
                               child: const Icon(Icons.arrow_forward_ios_outlined)),
                           ),
                         )

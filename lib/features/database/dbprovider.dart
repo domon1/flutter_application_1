@@ -34,7 +34,8 @@ class DBProvider {
         id INTEGER PRIMARY KEY,
         name TEXT,
         imageName TEXT,
-        cost INTEGER
+        cost INTEGER,
+        count INTEGER
       )
     ''');
   }
@@ -54,6 +55,11 @@ class DBProvider {
   Future<int> deleteItem(int id) async {
     Database db = await instance.db;
     return await db.delete('cart_item', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<int> updateItem(ItemCartModel newModel) async {
+    Database db = await instance.db;
+    return await db.update('cart_item', newModel.toMap(), where: 'id = ?', whereArgs: [newModel.id]);
   }
 
   Future<int> deleteAllItems() async {

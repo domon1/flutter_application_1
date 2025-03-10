@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/repositorty/user_repository.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -11,9 +10,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String _name = "";
-  String _username = "";
-  String _password = "";
+  String _name = '';
+  String _username = '';
+  String _password = '';
 
   final _formkey = GlobalKey<FormState>();
   @override
@@ -48,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: Colors.black38),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 335,
+                    height: 360,
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Form(
@@ -73,8 +72,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   return "Имя должно быть заполнено";
                                 } return null;
                               },
-                              onSaved: (value) {
-                                _name = value!;
+                              onChanged: (value) {
+                                _name = value;
                               },
                             ),
 
@@ -95,8 +94,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   return "Не корректный номер телефона";
                                 } return null;
                               },
-                              onSaved: (value) {
-                                _username = value!;
+                              onChanged: (value) {
+                                _username = value;
                               },
                             ),
 
@@ -120,8 +119,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   return "Пароль не заполнен";
                                 } return null;
                               },
-                              onSaved: (value) {
-                                _password = value!;
+                              onChanged: (value) {
+                                _password = value;
                               },
                             ),
 
@@ -142,9 +141,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                         Navigator.pop(context);
                                       }
                                     },
-                                    child: const Text('Отправить')),
+                                    child: const Text('Отправить',),),
                               ),
-                            )
+                            ), 
+                            const SizedBox(height: 15),
                           ],
                         ),
                       ),

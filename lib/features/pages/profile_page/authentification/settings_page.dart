@@ -1,8 +1,26 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/database/dbprovider.dart';
+import 'package:flutter_application_1/features/database/profile_model.dart';
+import 'package:flutter_application_1/repositorty/models/order_model.dart';
+import 'package:flutter_application_1/repositorty/order_repository.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  List<ProfileModel>? _profiles;
+
+  @override
+  void didChangeDependencies() {
+    _profiles =
+        ModalRoute.of(context)!.settings.arguments as List<ProfileModel>;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +52,23 @@ class SettingsPage extends StatelessWidget {
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         color: Colors.black26),
-                    child: const Padding(
-                      padding: EdgeInsets.all(10.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
                       child: Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [Text('Имя'), Text('Дмитрий')],
+                            children: [
+                              const Text('Имя'),
+                              Text(_profiles![0].name)
+                            ],
                           ),
-                          Divider(),
+                          const Divider(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Номер телефона'),
-                              Text('89585106287')
+                              const Text('Номер телефона'),
+                              Text(_profiles![0].username)
                             ],
                           )
                         ],
@@ -55,6 +76,25 @@ class SettingsPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                    width: double.infinity,
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.black26),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: TextButton(
+                              onPressed: () async {
+                                OrderRepository orderRepository = OrderRepository(dio: Dio());
+                                List<OrderModel> orders = await orderRepository.getOrderByUsername(_profiles![0].username);                               
+                                Navigator.pushNamed(context, "/history", arguments: orders);
+                              },
+                              child: const Text("История заказов")),
+                        ))),
                 const SizedBox(
                   height: 15,
                 ),
